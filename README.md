@@ -59,7 +59,7 @@ TuyaConfig.getEZInstance().stopConfig();
 * @param router's password 
 * @param token 
 */
-void startConfig(String ssid, String password, String token);
+void startConfig(Context context,String ssid, String password, String token);
 
 
 /**
@@ -69,7 +69,7 @@ void stopConfig();
 ```
 
 ```java
-TuyaConfig.getAPInstance().startConfig("xxxssid","xxxpwd","token");
+TuyaConfig.getAPInstance().startConfig(context,"xxxssid","xxxpwd","token");
 
 TuyaConfig.getEZInstance().stopConfig();
 ```
