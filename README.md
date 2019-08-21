@@ -97,4 +97,14 @@ TuyaConfig.getWiredConfigInstance().startConfig(context,"token");
 
 TuyaConfig.getWiredConfigInstance().stopConfig();
 ```
+## proguard-rules
 
+
+```
+#fastJson
+-keep class com.alibaba.fastjson.**{*;}
+-dontwarn com.alibaba.fastjson.**
+
+-keep class com.tuya.**{*;}
+-dontwarn com.tuya.**
+```
