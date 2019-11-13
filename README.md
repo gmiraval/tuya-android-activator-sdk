@@ -13,7 +13,7 @@ TuyaSmartActivator APP SDK supports three network configuration modes, quick con
 
 ```groovy
 dependencies {
- implementation 'com.tuya.smart:deviceActivator:3.0.3'
+ implementation 'com.tuya.smart:deviceActivator:3.12.0'
  implementation 'com.alibaba:fastjson:1.1.67.android'
 }
 ```
@@ -80,6 +80,7 @@ TuyaConfig.getEZInstance().stopConfig();
 
 ```java
 /**
+* @param context  use the application's context
 * @param token 
 */
 void startConfig(Context context, String token);
