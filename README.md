@@ -6,7 +6,9 @@
 
 TuyaSmartActivator APP SDK supports three network configuration modes, quick connection mode (TLink, it is referred to as the EZ mode) and hotspot mode (AP mode),  wired network configuration of zigbee gateway.
 
-## Rapid Integration
+## Preparation
+
+Put the following configuration in your build.gradle:
 
 ```groovy
 dependencies {
@@ -15,6 +17,29 @@ dependencies {
 }
 ```
 
+## Get Authorization Token
+
+All activator interfaces require incoming authToken. 
+
+First, you shoud request api `/v1.0/devices/token`, please refer to this document [Generate A Paring Token](https://docs.tuya.com/en/iot/open-api/api-list/api/paring-management#title-1-Generate%20a%20paring%20token)
+
+And you will get such response:
+
+```json
+{
+  "secret":"reKE",
+  "region":"AY",
+  "token":"nqMwn1Nd"
+}
+```
+
+authToken = region+token+secret , such as:
+
+```java
+String authToken = region + token + secret; // "AY" + "nqMwn1Nd" + "reKE" 
+```
+
+In this way, you get the authToken parameter, which can be used in following methods.
 
 ## Network Configuration 
 
@@ -27,9 +52,9 @@ Tuya’s hardware module supports three modes of network configuration: fast con
 /**
 * @param ssid 
 * @param password  
-* @param token 
+* @param authToken 
 */
-void startConfig(String ssid, String password, String token);
+void startConfig(String ssid, String password, String authToken);
 
 
 /**
@@ -40,7 +65,7 @@ void stopConfig();
 ```
 
 ```java
-TuyaConfig.getEZInstance().startConfig("xxxssid","xxxpwd","token");
+TuyaConfig.getEZInstance().startConfig("xxxssid","xxxpwd","authToken");
 
 TuyaConfig.getEZInstance().stopConfig();
 ```
@@ -52,9 +77,9 @@ TuyaConfig.getEZInstance().stopConfig();
 /**
 * @param router's ssid 
 * @param router's password 
-* @param token 
+* @param authToken 
 */
-void startConfig(Context context,String ssid, String password, String token);
+void startConfig(Context context,String ssid, String password, String authToken);
 
 
 /**
@@ -64,7 +89,7 @@ void stopConfig();
 ```
 
 ```java
-TuyaConfig.getAPInstance().startConfig(context,"xxxssid","xxxpwd","token");
+TuyaConfig.getAPInstance().startConfig(context,"xxxssid","xxxpwd","authToken");
 
 TuyaConfig.getEZInstance().stopConfig();
 ```
@@ -76,9 +101,9 @@ TuyaConfig.getEZInstance().stopConfig();
 ```java
 /**
 * @param context  use the application's context
-* @param token 
+* @param authToken 
 */
-void startConfig(Context context, String token);
+void startConfig(Context context, String authToken);
 
 }
 
@@ -89,7 +114,7 @@ void stopConfig();
 ```
 
 ```java
-TuyaConfig.getWiredConfigInstance().startConfig(context,"token");
+TuyaConfig.getWiredConfigInstance().startConfig(context,"authToken");
 
 TuyaConfig.getWiredConfigInstance().stopConfig();
 ```
@@ -192,14 +217,14 @@ public void startConfig(ConfigParams configParams, TuyaBleConfigListener listene
 
 `ConfigParams` can create by `ConfigParamsBuilder`, the field descriptions are as follows.
 
-| Field    | Type        | Description                       |
-| -------- | ----------- | --------------------------------- |
-| scanBean | BLEScanBean | Scanning result bean              |
-| ssid     | String      | Your wifi name                    |
-| password | String      | Your wifi password                |
-| token    | String      | token requested from the server   |
-| random   | String      | random requested from the server  |
-| authKey  | String      | authKey requested from the server |
+| Field     | Type        | Description                                                  |
+| --------- | ----------- | ------------------------------------------------------------ |
+| scanBean  | BLEScanBean | Scanning result bean                                         |
+| ssid      | String      | Your wifi name                                               |
+| password  | String      | Your wifi password                                           |
+| authToken | String      | authToken, see [Get Authorization Token](#get-authorization-token) |
+| random    | String      | random requested from the server                             |
+| authKey   | String      | authKey requested from the server                            |
 
 **Example**
 
@@ -208,7 +233,7 @@ ConfigParams configParams = new ConfigParamsBuilder()
         .scanBean(bleScanBean)
         .authKey(encryptedAuthKey)
         .random(random)
-        .token(token)
+        .authToken(authToken)
         .ssid("your_wifi_name")
         .password("your_wifi_passowrd")
         .build();
