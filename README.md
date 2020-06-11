@@ -213,6 +213,10 @@ bleWifiInstance.stopScan();
 public void startConfig(ConfigParams configParams, TuyaBleConfigListener listener);
 ```
 
+**NOTE:**
+
+The `TuyaBleConfigListener` here does not mean that the device is actually activated successfully, only that the SDK successfully sent an activation command to the device. After you receive the `onSuccess` callback, you need to continuously request server for whether the device is activated successfully.
+
 **Parameters**
 
 `ConfigParams` can create by `ConfigParamsBuilder`, the field descriptions are as follows.
