@@ -12,7 +12,7 @@ Put the following configuration in your build.gradle:
 
 ```groovy
 dependencies {
- implementation 'com.tuya.smart:deviceActivator:3.15.0'
+ implementation 'com.tuya.smart:deviceActivator:3.15.1'
  implementation 'com.alibaba:fastjson:1.1.67.android'
 }
 ```
@@ -281,3 +281,9 @@ bleWifiInstance.stopConfig("your_device_uuid");
 -keep class com.tuya.**{*;}
 -dontwarn com.tuya.**
 ```
+
+
+## Changelog
+
+### 3.15.1
+* Fix Ble-WiFi Device can't config immediately after remove the device.
