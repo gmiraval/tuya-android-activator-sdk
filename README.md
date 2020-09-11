@@ -105,7 +105,6 @@ TuyaConfig.getEZInstance().stopConfig();
 */
 void startConfig(Context context, String authToken);
 
-}
 
 /**
 * stopConfig
