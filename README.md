@@ -12,7 +12,7 @@ Put the following configuration in your build.gradle:
 
 ```groovy
 dependencies {
- implementation 'com.tuya.smart:deviceActivator:3.15.1'
+ implementation 'com.tuya.smart:deviceActivator:3.15.3'
  implementation 'com.alibaba:fastjson:1.1.67.android'
 }
 ```
@@ -109,13 +109,13 @@ void startConfig(Context context, String authToken);
 /**
 * stopConfig
 */
-void stopConfig();
+void stopConfig(Context context);
 ```
 
 ```java
 TuyaConfig.getWiredConfigInstance().startConfig(context,"authToken");
 
-TuyaConfig.getWiredConfigInstance().stopConfig();
+TuyaConfig.getWiredConfigInstance().stopConfig(context);
 ```
 
 ### BLE-WiFi Dual Mode Device
@@ -283,6 +283,7 @@ bleWifiInstance.stopConfig("your_device_uuid");
 
 
 ## Changelog
-
+### 3.15.3
+* Fix activator of Zigbee gateway memory leak.
 ### 3.15.1
 * Fix Ble-WiFi Device can't config immediately after remove the device.
