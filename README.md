@@ -1,16 +1,16 @@
-#### Note: This repository is inherited from the [old Tuya Github repository](https://github.com/TuyaInc/tuyasmart_android_activator_sdk), which will be deprecated soon. Please use this repository for Tuya SDK development instead. For changing the existing remote repository URL, please check this [tutorial](https://docs.github.com/en/free-pro-team@latest/github/using-git/changing-a-remotes-url).
+#### Note: This repository is inherited from the [old Tuya Github repository](https://github.com/TuyaInc/tuyasmart_android_activator_sdk) that will be deprecated soon. Please use this repository for Tuya SDK development instead. For changing the existing remote repository URL, please check this [tutorial](https://docs.github.com/en/free-pro-team@latest/github/using-git/changing-a-remotes-url).
 
 # TuyaSmartActivator Android SDK
 
 ---
 
-## Features Overview
+## Overview
 
-TuyaSmartActivator APP SDK supports three network configuration modes, quick connection mode (TLink, it is referred to as the EZ mode) and hotspot mode (AP mode),  wired network configuration of zigbee gateway.
+TuyaSmartActivator android SDK supports three pairing modes, fast pairing (TLink. EZ mode), hotspot pairing (AP mode), and wired pairing through Zigbee gateway.
 
 ## Preparation
 
-Put the following configuration in your build.gradle:
+Add the following to the `build.gradle`:
 
 ```groovy
 dependencies {
@@ -19,13 +19,13 @@ dependencies {
 }
 ```
 
-## Get Authorization Token
+## Get authorization token
 
-All activator interfaces require incoming authToken. 
+All activator APIs require incoming authorization tokens. 
 
 First, you shoud request api `/v1.0/devices/token`, please refer to this document [Generate A Paring Token](https://docs.tuya.com/en/iot/open-api/api-list/api/paring-management#title-1-Generate%20a%20paring%20token)
 
-And you will get such response:
+And you will get the following response:
 
 ```json
 {
@@ -35,17 +35,17 @@ And you will get such response:
 }
 ```
 
-authToken = region+token+secret , such as:
+authToken = region + token + secret , such as:
 
 ```java
 String authToken = region + token + secret; // "AY" + "nqMwn1Nd" + "reKE" 
 ```
 
-In this way, you get the authToken parameter, which can be used in following methods.
+In this way, you get the authToken parameter that can be used in following methods.
 
-## Network Configuration 
+## Pairing 
 
-Tuya’s hardware module supports three modes of network configuration: fast connect mode (TLink, or EZ mode), and hotspot mode (AP mode), Wired network configuration of zigbee gateway. The EZ mode is relatively more straight- forward. It is recommended to use the hotspot mode as an alternative only when the network configuration fails with the EZ mode. 
+Tuya’s hardware modules support three pairing modes: fast pairing (TLink. EZ mode), hotspot pairing (AP mode), and wired pairing through Zigbee gateway. The EZ mode is  more direct. It is recommended to use the hotspot mode as an alternative only when the pairing fails in the EZ mode. 
 
 ### EZ mode 
 
@@ -97,7 +97,7 @@ TuyaConfig.getEZInstance().stopConfig();
 ```
 
 
-### Zigbee Gateway 
+### Zigbee gateway mode
 
 
 ```java
@@ -120,13 +120,13 @@ TuyaConfig.getWiredConfigInstance().startConfig(context,"authToken");
 TuyaConfig.getWiredConfigInstance().stopConfig(context);
 ```
 
-### BLE-WiFi Dual Mode Device
+### BLE–Wi-Fi dual mode device
 
-BLE-WiFi dual mode device has both Bluetooth Low Energy(BLE) and WiFi modules.
+BLE–Wi-Fi dual mode devices support both Bluetooth low energy (BLE) and Wi-Fi modules.
 
 #### Permissions
 
-To use Bluetooth to scan and pair devices, you need to add the following permissions to your AndroidManifest.xml.
+To pair devices through BLE, you need to add the following permissions to your AndroidManifest.xml.
 
 ```xml
 <!-- Required. Allows applications to connect to paired bluetooth devices.  -->
@@ -143,17 +143,17 @@ To use Bluetooth to scan and pair devices, you need to add the following permiss
 	android:required="false" />
 ```
 
-#### getBleWifiInstance
+#### Get BLE–Wi-Fi instance
 
-All  Ble-WiFi methods are in ItuyaBleWifiConfig interface.
+All BLE–Wi-Fi methods are in the `ItuyaBleWifiConfig`.
 
 ```java
 ITuyaBleWifiConfig bleWifiInstance = TuyaConfig.getBleWifiInstance();
 ```
 
-#### Scan BLE-WiFi Device
+#### Scan BLE–Wi-Fi device
 
-Only one device will be returned at a time, you need to save the scanned results yourself.
+Only one device will be returned at a time and you need to save the scanned results yourself.
 
 ```java
 /**
@@ -166,7 +166,7 @@ public void startScan(int timeout, TuyaBleScanCallback scanCallback);
 
 **Parameters**
 
-`TuyaBleScanCallback` will callback `BLEScanBean`,  you should focus on the following fields.
+`TuyaBleScanCallback` will call back `BLEScanBean` and you should focus on the following fields.
 
 | Field     | Type    | Description                         |
 | --------- | ------- | ----------------------------------- |
@@ -188,7 +188,7 @@ bleWifiInstance.startScan(20 * 1000, new TuyaBleScanCallback() {
 });
 ```
 
-#### Stop Scan BLE-WiFi Device
+#### Stop scaning BLE–Wi-Fi device
 
 ```java
 /**
@@ -203,7 +203,7 @@ public void stopScan();
 bleWifiInstance.stopScan();
 ```
 
-#### Start Config
+#### Start configuring
 
 ```java
 /**
@@ -214,13 +214,13 @@ bleWifiInstance.stopScan();
 public void startConfig(ConfigParams configParams, TuyaBleConfigListener listener);
 ```
 
-**NOTE:**
+**Note:**
 
-The `TuyaBleConfigListener` here does not mean that the device is actually activated successfully, only that the SDK successfully sent an activation command to the device. After you receive the `onSuccess` callback, you need to continuously request server for whether the device is activated successfully.
+The `TuyaBleConfigListener` does not mean that the device is activated successfully. Instead, it only means that the SDK sent an activation command to the device successfully. After you receive the `onSuccess` callback, you need to continuously query the server for whether the device is activated successfully.
 
 **Parameters**
 
-`ConfigParams` can create by `ConfigParamsBuilder`, the field descriptions are as follows.
+`ConfigParams` can be created by `ConfigParamsBuilder`, the field descriptions are as follows.
 
 | Field     | Type        | Description                                                  |
 | --------- | ----------- | ------------------------------------------------------------ |
@@ -255,7 +255,7 @@ bleWifiInstance.startConfig(configParams, new TuyaBleConfigListener() {
 });
 ```
 
-#### Stop Config
+#### Stop configuring
 
 ```java
 /**
@@ -271,7 +271,7 @@ public void stopConfig(String devUuid);
 bleWifiInstance.stopConfig("your_device_uuid");
 ```
 
-## proguard-rules
+## Proguard-rules
 
 
 ```
@@ -286,6 +286,6 @@ bleWifiInstance.stopConfig("your_device_uuid");
 
 ## Changelog
 ### 3.15.3
-* Fix activator of Zigbee gateway memory leak.
+* Fix the activator of Zigbee gateway memory leak.
 ### 3.15.1
-* Fix Ble-WiFi Device can't config immediately after remove the device.
+* Fix the BLE–Wi-Fi device that can't be configured immediately after it is removed.
