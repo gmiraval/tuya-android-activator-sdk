@@ -120,7 +120,7 @@ TuyaConfig.getWiredConfigInstance().startConfig(context,"authToken");
 TuyaConfig.getWiredConfigInstance().stopConfig(context);
 ```
 
-### BLE–Wi-Fi dual mode device
+### BLE + Wi-Fi dual mode device
 
 BLE–Wi-Fi dual mode devices support both Bluetooth low energy (BLE) and Wi-Fi modules.
 
@@ -143,7 +143,7 @@ To pair devices through BLE, you need to add the following permissions to your A
 	android:required="false" />
 ```
 
-#### Get BLE–Wi-Fi instance
+#### Get BLE + Wi-Fi instance
 
 All BLE–Wi-Fi methods are in the `ItuyaBleWifiConfig`.
 
@@ -151,7 +151,7 @@ All BLE–Wi-Fi methods are in the `ItuyaBleWifiConfig`.
 ITuyaBleWifiConfig bleWifiInstance = TuyaConfig.getBleWifiInstance();
 ```
 
-#### Scan BLE–Wi-Fi device
+#### Scan BLE + Wi-Fi device
 
 Only one device will be returned at a time and you need to save the scanned results yourself.
 
@@ -188,7 +188,7 @@ bleWifiInstance.startScan(20 * 1000, new TuyaBleScanCallback() {
 });
 ```
 
-#### Stop scaning BLE–Wi-Fi device
+#### Stop scaning BLE + Wi-Fi device
 
 ```java
 /**
@@ -288,4 +288,4 @@ bleWifiInstance.stopConfig("your_device_uuid");
 ### 3.15.3
 * Fix the activator of Zigbee gateway memory leak.
 ### 3.15.1
-* Fix the BLE–Wi-Fi device that can't be configured immediately after it is removed.
+* Fix the BLE + Wi-Fi device that can't be configured immediately after it is removed.
