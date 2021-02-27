@@ -23,7 +23,7 @@ dependencies {
 
 All activator APIs require incoming authorization tokens. 
 
-First, you shoud request api `/v1.0/devices/token`, please refer to this document [Generate A Paring Token](https://docs.tuya.com/en/iot/open-api/api-list/api/paring-management#title-1-Generate%20a%20paring%20token)
+First, you should request API `/v1.0/devices/token`, please refer to this document [Generate A Paring Token](https://docs.tuya.com/en/iot/open-api/api-list/api/paring-management#title-1-Generate%20a%20paring%20token)
 
 And you will get the following response:
 
@@ -143,9 +143,9 @@ To pair devices through BLE, you need to add the following permissions to your A
 	android:required="false" />
 ```
 
-#### Get BLE + Wi-Fi instance
+#### Get BLE + Wi-Fi methods
 
-All BLE–Wi-Fi methods are in the `ItuyaBleWifiConfig`.
+All BLE + Wi-Fi methods are in the `ItuyaBleWifiConfig`.
 
 ```java
 ITuyaBleWifiConfig bleWifiInstance = TuyaConfig.getBleWifiInstance();
